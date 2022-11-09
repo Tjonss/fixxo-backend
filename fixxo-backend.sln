@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fixxo-backend", "fixxo-backend\fixxo-backend.csproj", "{25570C25-6313-4DDF-8A4F-2A4F84F5BBC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25570C25-6313-4DDF-8A4F-2A4F84F5BBC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25570C25-6313-4DDF-8A4F-2A4F84F5BBC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25570C25-6313-4DDF-8A4F-2A4F84F5BBC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25570C25-6313-4DDF-8A4F-2A4F84F5BBC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88D23217-8828-476E-8C7C-F1667C4EB8C0}
+	EndGlobalSection
+EndGlobal
