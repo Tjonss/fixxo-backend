@@ -63,5 +63,22 @@ namespace fixxo_backend.Controllers
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
             return new BadRequestResult();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var category = await _context.Categories.FindAsync(id);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return NoContent();
+        }
     }
 }

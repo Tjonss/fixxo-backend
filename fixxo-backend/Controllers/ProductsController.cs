@@ -32,6 +32,7 @@ namespace fixxo_backend.Controllers
                         Name = req.Name,
                         Description = req.Description,
                         Price = req.Price,
+                        ImageURL = req.ImageURL,
                         CategoryId = req.CategoryId
                     });
                     await _context.SaveChangesAsync();
@@ -40,7 +41,9 @@ namespace fixxo_backend.Controllers
                         Name = req.Name,
                         Description = req.Description,
                         Price = req.Price,
-                        CategoryId = req.CategoryId
+                        ImageURL = req.ImageURL,
+                        CategoryId = req.CategoryId,
+                        
                     });  
                 }               
             }
@@ -54,13 +57,18 @@ namespace fixxo_backend.Controllers
             try
             {
                 var products = new List<ProductResponse>();
-                foreach(var product in await _context.Products.ToListAsync())
+                foreach(var product in await _context.Products.Include(x => x.Category).ToListAsync())
                     products.Add(new ProductResponse 
                     { 
                         Name = product.Name,
                         Description = product.Description,
                         Price = product.Price,
-                        CategoryId = product.CategoryId
+                        ImageURL = product.ImageURL,
+                        CategoryId = product.CategoryId,
+                        CategoryName = product.Category.Name,
+                        Id = product.Id
+                        
+                        
                     });
                 await _context.SaveChangesAsync();
                 return new OkObjectResult(products);
@@ -74,20 +82,40 @@ namespace fixxo_backend.Controllers
         {
             try
             {
-                var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+                var product = await _context.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
                 if(product != null)
                 {
                     return new OkObjectResult(new ProductResponse
                     {
+                        Id = product.Id,
                         Name = product.Name,
                         Description = product.Description,
                         Price = product.Price,
-                        CategoryId = product.CategoryId
+                        ImageURL = product.ImageURL,
+                        CategoryId = product.CategoryId,
+                        CategoryName = product.Category.Name
                     });
                 }
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
             return new BadRequestResult();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);
+                if(product == null)
+                {
+                    return NotFound();
+                }
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
+            return NoContent();
         }
     }
 }

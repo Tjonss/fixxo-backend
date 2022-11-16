@@ -16,6 +16,9 @@ namespace fixxo_backend.Models.Entities
         public string Description { get; set; }
 
         [Required]
+        public string ImageURL { get; set; }
+
+        [Required]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
